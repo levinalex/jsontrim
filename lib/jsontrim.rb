@@ -51,9 +51,10 @@ class JSONTrim
     end
 
     js = JSON.pretty_generate(obj)
-    js = js.gsub('"IGN_HSH"', "{ ... }")
-    js = js.gsub('"IGN_ARY"', "[ ... ]")
-    js = js.gsub('"IGN"', "...")
+    js = js.gsub('"IGN_HSH"', "{ /*...*/ }")
+    js = js.gsub('"IGN_ARY"', "[ /*...*/ ]")
+    js = js.gsub('"IGN_CDR"', "// ...")
+    js = js.gsub('"IGN"', '"..."')
   end
   
   # recursively prune the current ruby object with the given rules
@@ -76,7 +77,7 @@ class JSONTrim
                    end if data[name]
     elsif key =~ /^\+$/
       if Array === data
-        data = [data.first, "IGN"]
+        data = [data.first, "IGN_CDR"]
       end
     elsif key =~ /^\*$/
       if Array === data
