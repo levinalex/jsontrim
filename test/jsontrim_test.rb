@@ -22,35 +22,35 @@ class JsontrimTest < Test::Unit::TestCase
   end
 
   should "distinguish between arrays and hashes" do
-    assert_equal %Q({\n  "foo": { /*...*/ }\n}),
+    assert_equal %Q({\n  "foo": { ... }\n}),
                  JSONTrim.cut(%q({"foo" : { "bar": "fred"}}),  :ignore => ["!foo"])
-    assert_equal %Q({\n  "foo": [ /*...*/ ]\n}),
+    assert_equal %Q({\n  "foo": [ ... ]\n}),
                  JSONTrim.cut(%q({"foo" : [ "bar", "fred"]}),  :ignore => ["!foo"])
-    assert_equal %Q({\n  "foo": "..."\n}),
+    assert_equal %Q({\n  "foo": ...\n}),
                  JSONTrim.cut(%q({"foo" : 3}),  :ignore => ["!foo"])
   end
 
   should "work for nested attributes" do
-    assert_equal %Q({\n  "foo": {\n    "bar": { /*...*/ }\n  }\n}),
+    assert_equal %Q({\n  "foo": {\n    "bar": { ... }\n  }\n}),
                  JSONTrim.cut(%q({"foo" : { "bar": {"f":3}}}), :ignore => ["foo:!bar"])
 
-    assert_equal %Q({\n  "foo": {\n    "bar": "..."\n  }\n}),
+    assert_equal %Q({\n  "foo": {\n    "bar": ...\n  }\n}),
                 JSONTrim.cut(%q({"foo" : { "bar": 3}}), :ignore => ["foo:!bar"])
   end
 
   should "not alter json if ignored thing does not exist" do
-    assert_equal %Q({\n  "foo": { /*...*/ }\n}),
+    assert_equal %Q({\n  "foo": { ... }\n}),
                  JSONTrim.cut(%q({"foo" : { "bar": "fred"}}),
                    :ignore => ["!foo", "!doesnotexist", "foo:!doesnotexist"])
   end
 
   should "allow ignoring of subelements of arrays" do
-    assert_equal_ws %Q({"foo":[{"bar": { /*...*/ }},{"bar": "..."}]}),
+    assert_equal_ws %Q({"foo":[{"bar": { ... }},{"bar": ...}]}),
                  JSONTrim.cut(%q({"foo" : [{ "bar": {"baz":3}}, {"bar":3}]}), :ignore => ["foo:*:!bar"])
   end
 
   should "allow ignoring of arrays" do
-    assert_equal %Q({\n  "foo": [\n    "bar",\n    // ...\n  ]\n}),
+    assert_equal %Q({\n  "foo": [\n    "bar",\n    ...\n  ]\n}),
                  JSONTrim.cut(%q({"foo": ["bar", "baz", "fred"]}),
                    :ignore => ["foo:+"])
   end
@@ -73,18 +73,18 @@ class JsontrimTest < Test::Unit::TestCase
      expected = <<-EOF
 {
   "foo": {
-    "two": "...",
+    "two": ...,
     "three": {
-      "b": [ /*...*/ ]
+      "b": [ ... ]
     },
     "one": {
       "a": 1,
-      "b": { /*...*/ }
+      "b": { ... }
     }
   },
   "bar": [
     1,
-    // ...
+    ...
   ]
 }
 EOF
