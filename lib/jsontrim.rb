@@ -56,7 +56,7 @@ class JSONTrim
     js = js.gsub('"IGN_ARY"', "[ ... ]")
     js = js.gsub('"IGN"', "...")
   end
-  
+
   # recursively prune the current ruby object with the given rules
   # replace pruned elements with marker strings
   #

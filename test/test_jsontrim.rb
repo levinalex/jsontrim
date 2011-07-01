@@ -58,14 +58,14 @@ class JsontrimTest < Test::Unit::TestCase
   should "pass a complex testcase" do
     before = <<-EOF
      { "foo": {
-          "one": { "a": 1, "b": {"c": 2} },
-          "two": "value",
-          "three": { "b": [1,2,3] }},
+          "x": { "a": 1, "b": {"c": 2} },
+          "y": "value",
+          "z": { "b": [1,2,3] }},
        "bar": [1,2,3,4,5] }
      EOF
 
      blacklist = [
-       "foo:!two",
+       "foo:!y",
        "foo:*:!b",
        "bar:+"
      ]
@@ -73,12 +73,12 @@ class JsontrimTest < Test::Unit::TestCase
      expected = <<-EOF
 {
   "foo": {
-    "one": {
+    "x": {
       "a": 1,
       "b": { ... }
     },
-    "two": ...,
-    "three": {
+    "y": ...,
+    "z": {
       "b": [ ... ]
     }
   },
