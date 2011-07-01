@@ -1,4 +1,4 @@
-require 'test_helper'
+require 'helper'
 
 class JsontrimTest < Test::Unit::TestCase
   def assert_equal_ws(expected, actual)
