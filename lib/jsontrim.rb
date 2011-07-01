@@ -37,6 +37,7 @@ require 'json'
 #      }
 #
 class JSONTrim
+  VERSION = "0.1.4"
 
   # prune the given JSON-string or ruby Hash according to
   # the rules given in opts[:ignore]

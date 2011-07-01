@@ -73,13 +73,13 @@ class JsontrimTest < Test::Unit::TestCase
      expected = <<-EOF
 {
   "foo": {
-    "two": ...,
-    "three": {
-      "b": [ ... ]
-    },
     "one": {
       "a": 1,
       "b": { ... }
+    },
+    "two": ...,
+    "three": {
+      "b": [ ... ]
     }
   },
   "bar": [

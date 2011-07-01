@@ -1,58 +1,11 @@
-require 'rubygems'
-require 'rake'
-
-begin
-  require 'jeweler'
-  Jeweler::Tasks.new do |gem|
-    gem.name = "jsontrim"
-    gem.summary = %Q{remove unimportant elements from a json object}
-    gem.description = %Q{remove unimportant elements from a json object}
-    gem.email = "mail@levinalex.net"
-    gem.homepage = "http://github.com/levinalex/jsontrim"
-    gem.authors = ["Levin Alexander"]
-    gem.add_development_dependency "thoughtbot-shoulda"
-    gem.add_dependency "json"
-  end
-
-  Jeweler::GemcutterTasks.new
-rescue LoadError
-  puts "Jeweler (or a dependency) not available. Install it with: sudo gem install jeweler"
-end
+$LOAD_PATH.unshift './lib'
 
 require 'rake/testtask'
-Rake::TestTask.new(:test) do |test|
-  test.libs << 'lib' << 'test'
-  test.pattern = 'test/**/*_test.rb'
-  test.verbose = true
-end
+Rake::TestTask.new(:test)
 
-begin
-  require 'rcov/rcovtask'
-  Rcov::RcovTask.new do |test|
-    test.libs << 'test'
-    test.pattern = 'test/**/*_test.rb'
-    test.verbose = true
-  end
-rescue LoadError
-  task :rcov do
-    abort "RCov is not available. In order to run rcov, you must: sudo gem install spicycode-rcov"
-  end
-end
+require 'bundler'
+Bundler::GemHelper.install_tasks
 
-task :test => :check_dependencies
+require 'jsontrim'
 
-task :default => :test
-
-require 'rake/rdoctask'
-Rake::RDocTask.new do |rdoc|
-  if File.exist?('VERSION')
-    version = File.read('VERSION')
-  else
-    version = ""
-  end
-
-  rdoc.rdoc_dir = 'rdoc'
-  rdoc.title = "jsontrim #{version}"
-  rdoc.rdoc_files.include('README*')
-  rdoc.rdoc_files.include('lib/**/*.rb')
-end
+task :default => [:test]
