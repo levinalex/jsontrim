@@ -62,15 +62,15 @@ class JsontrimTest < Test::Unit::TestCase
           "y": "value",
           "z": { "b": [1,2,3] }},
        "bar": [1,2,3,4,5] }
-     EOF
+    EOF
 
-     blacklist = [
-       "foo:!y",
-       "foo:*:!b",
-       "bar:+"
-     ]
+    blacklist = [
+      "foo:!y",
+      "foo:*:!b",
+      "bar:+"
+    ]
 
-     expected = <<-EOF
+    expected = <<-EOF
 {
   "foo": {
     "x": {
@@ -87,9 +87,9 @@ class JsontrimTest < Test::Unit::TestCase
     ...
   ]
 }
-EOF
+    EOF
 
-     actual = JSONTrim.cut(before, :ignore => blacklist)
-     assert_equal expected.chomp, actual
+    actual = JSONTrim.cut(before, :ignore => blacklist)
+    assert_equal expected.chomp, actual
   end
 end
