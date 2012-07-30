@@ -20,7 +20,7 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
   s.summary = %q{remove unimportant elements from a json object}
 
-  s.add_development_dependency("shoulda", "~> 2.11.3")
+  s.add_development_dependency("shoulda", "~> 3.1")
   s.add_development_dependency("json")
   s.add_development_dependency("rake")
 end
